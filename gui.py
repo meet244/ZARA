@@ -25,8 +25,8 @@ app.grid_columnconfigure(1, weight=1)
 app.grid_rowconfigure(1, weight=1)
 app.grid_rowconfigure((0, 2), weight=0)
 # todo change image paths
-send_image = customtkinter.CTkImage(dark_image=Image.open("ChatApp.jpg"),size=(25,25))
-mic_image = customtkinter.CTkImage(dark_image=Image.open("ChatApp.jpg"),size=(25,25))
+send_image = customtkinter.CTkImage(dark_image=Image.open("send-dark.png"),size=(25,25))
+mic_image = customtkinter.CTkImage(dark_image=Image.open("mic-dark.png"),size=(25,25))
 
 def format_text(text, max_width=27):
     words = text.split()

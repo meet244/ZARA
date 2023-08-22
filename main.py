@@ -38,8 +38,8 @@ app.grid_columnconfigure(1, weight=1)
 app.grid_rowconfigure(1, weight=1)
 app.grid_rowconfigure((0, 2), weight=0)
 
-send_image = customtkinter.CTkImage(dark_image=Image.open("ChatApp.jpg"),size=(25,25))
-mic_image = customtkinter.CTkImage(dark_image=Image.open("ChatApp.jpg"),size=(25,25))
+send_image = customtkinter.CTkImage(dark_image=Image.open("send-dark.png"),size=(25,25))
+mic_image = customtkinter.CTkImage(dark_image=Image.open("mic-dark.png"),size=(25,25))
 
 def format_text(text, max_width=27):
     words = text.split()
@@ -77,6 +77,9 @@ def button_send():
     textbox.grid(row=len(allMessage)+1,column=0, padx=(5,5), pady=(5,5), sticky="ne")
     allMessage.append(textbox)
     print("button send")
+
+    resp = final.ZARA(entry.get())
+    zara_say(resp)
 send_btn = customtkinter.CTkButton(app, text="", fg_color="transparent",width=30, height=30, command=button_send, image=send_image)
 send_btn.grid(row=2,column=2,padx=(5,5),pady=(10,10))
 
@@ -157,7 +160,7 @@ def takeCommand():
         print("Say that again please...")
 
     if(query):
-        entry.insert('0.0',query)
+        entry.insert(0,query)
 
 def waitWakeUp():
     try:
@@ -176,7 +179,7 @@ def waitWakeUp():
 
 if __name__ == "__main__":
     wake = threading.Thread(target=waitWakeUp)
-    wake.setDaemon(True)
+    wake.daemon = True
     wake.start()
     zara_say("Hello how can I help?")
     app.mainloop()
