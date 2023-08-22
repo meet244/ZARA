@@ -24,9 +24,9 @@ app.grid_columnconfigure((0,2), weight=0)
 app.grid_columnconfigure(1, weight=1)
 app.grid_rowconfigure(1, weight=1)
 app.grid_rowconfigure((0, 2), weight=0)
-
-send_image = customtkinter.CTkImage(dark_image=Image.open(r"C:\Users\meet2\Downloads\send-dark.png"),size=(25,25))
-mic_image = customtkinter.CTkImage(dark_image=Image.open(r"C:\Users\meet2\Downloads\mic-dark.png"),size=(25,25))
+# todo change image paths
+send_image = customtkinter.CTkImage(dark_image=Image.open("ChatApp.jpg"),size=(25,25))
+mic_image = customtkinter.CTkImage(dark_image=Image.open("ChatApp.jpg"),size=(25,25))
 
 def format_text(text, max_width=27):
     words = text.split()
@@ -64,7 +64,8 @@ def button_send():
     textbox.grid(row=len(allMessage)+1,column=0, padx=(5,5), pady=(5,5), sticky="ne")
     allMessage.append(textbox)
     print("button send")
-listen_btn = customtkinter.CTkButton(app, text="", fg_color="transparent",width=30, height=30, command=button_send, image=send_image)
+send_btn = customtkinter.CTkButton(app, text="", fg_color="transparent",width=30, height=30, command=button_send, image=send_image)
+send_btn.grid(row=2,column=2,padx=(5,5),pady=(10,10))
 
 scrollable_frame = customtkinter.CTkScrollableFrame(app,width=450,height=300,label_anchor='s')
 scrollable_frame.grid(column=0,row=1,sticky="nsew",columnspan=3)
@@ -72,15 +73,6 @@ scrollable_frame.grid_columnconfigure(0,weight=1)
 scrollable_frame.grid_rowconfigure(0,weight=1)
 
 allMessage = []
-for i in range(5):
-    textt = ""
-    tex,c = format_text(textt)
-    print(c)
-    textbox = customtkinter.CTkTextbox(scrollable_frame,activate_scrollbars=False, height=25*c if(c<=20) else 360,width=300)
-    textbox.insert('0.0',tex)
-    textbox.configure(state="disabled", wrap="word")  # configure textbox to be read-only
-    textbox.grid(row=len(allMessage)+1,column=0, padx=(5,5), pady=(5,5), sticky="nw")
-    allMessage.append(textbox)
 
 def user_say(thing):
     tex,c = format_text(thing)
@@ -92,12 +84,19 @@ def user_say(thing):
 
 def zara_say(thing):
     tex,c = format_text(thing)
-    textbox = customtkinter.CTkTextbox(scrollable_frame,activate_scrollbars=False, height=25*c if(c<=20) else 20,width=300)
+    textbox = customtkinter.CTkTextbox(scrollable_frame,activate_scrollbars=False, height=25*c if(c<=20) else 20,width=300, fg_color="#165182")
     textbox.insert('0.0',tex)
     textbox.configure(state="disabled", wrap="word")  # configure textbox to be read-only
     textbox.grid(row=len(allMessage)+1,column=0, padx=(5,5), pady=(5,5), sticky="nw")
     allMessage.append(textbox)
 
-listen_btn.grid(row=2,column=2,padx=(5,5),pady=(10,10))
+
+
+user_say("hi")
+
+zara_say("hello how can i help?")
+
 
 app.mainloop()
+
+print("hiii")
