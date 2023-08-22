@@ -7,7 +7,7 @@ load_dotenv()
 # model = T5ForConditionalGeneration.from_pretrained("google/flan-t5-xxl")
 
 def classify(sentence):
-    template = "start software / code / math / gk / unit conversion / alarm / timer / song or music / weather / news / navigation / others. among the given topics classify the following sentence('{question}') to one of them with possibility from 0 to 100. give response in 1-2 words."
+    template = "start software / code / math / gk / unit conversion / alarm / timer / song or music / weather / news / navigation / conversation / others. among the given topics classify the following sentence('{question}') to one of them with possibility from 0 to 100. give response in 1-2 words."
             
     prompt = PromptTemplate(template=template, input_variables=["question"])
 
@@ -25,6 +25,27 @@ def classify(sentence):
 
 def response(sentence):
     template = "{question}"
+            
+    prompt = PromptTemplate(template=template, input_variables=["question"])
+
+    llm=HuggingFaceHub(repo_id="google/flan-t5-xxl")
+
+    llm_chain=LLMChain(
+                    llm=llm,
+                    prompt=prompt
+                )
+
+    # def generate_response(question, llm_chain):
+    response = llm_chain.run(sentence)
+    return response
+
+    # def get_text():
+    #     # input_text = st.text_input("You: ", "", key="input")
+    #     input_text = input("hi :")
+    #     return input_text
+
+def Mathresponse(sentence):
+    template = "{question}\nWrite Your Final Answer. Read and Understand the Problem. Identify the Relevant Concepts. Make the equation. Perform Calculations"
             
     prompt = PromptTemplate(template=template, input_variables=["question"])
 

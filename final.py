@@ -2,6 +2,7 @@ import programs
 import openAssist
 import flans
 import re
+import time
 import pywhatkit as kit
 import pyautogui as pg
 
@@ -23,8 +24,10 @@ def ZARA(query):
     for w in resp1.split(" "):
         if(w in ["start","open","launch","software"]):
             # fun
-            programs.startProgramLocal(query)
-            return("launching it")
+            if programs.startProgramLocal(query):
+                return("launching it")
+            else:
+                return("")
         if(w in ["code"]):
             # oa
             resp = openAssist.response(query)
@@ -36,17 +39,19 @@ def ZARA(query):
 
                     # Print each match (i.e., the extracted code blocks)
                     for match in matches:
-                        pg.write(match.strip())
-                        pg.write("/n")
+                        # pg.write(match.stripe())
+                        tex = match.strip()
+                        pg.write(tex)
+                        # pg.write("/n")
                 else:
                     pg.write(resp)
             return(resp)
         if(w in ["math"]):
             # flan oa
-            print("wolfarm")
-            print(programs.wolfarm(query))
+            # print("wolfarm")
+            # print(programs.wolfarm(query))
             print("Flan")
-            return(flans.response(query))
+            return(flans.Mathresponse(query))
         if(w in ["gk"]):
             # oa
             print("oA")
@@ -80,6 +85,6 @@ def ZARA(query):
         if(w in ["navigation"]):
             # fun
             return(programs.travel(query))
-        if(w in ["others","other"]):
+        if(w in ["others","other","conversation"]):
             # oa
             return(openAssist.response(query))

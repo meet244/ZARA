@@ -41,13 +41,18 @@ def startProgramLocal(name):
   print(finals)
   
   if(len(finals)>1):
-      # for f in finals:
-      #   subprocess.Popen([f], shell=True)
-      pass
+      if(len(finals)<5):
+        for f in finals:
+          subprocess.Popen([f], shell=True)
+        return True
+      else:
+         return False
 
   elif(len(finals)==1):
       subprocess.Popen([finals[0]], shell=True)
+      return True
   else:
+      return False
       print("No apps found to launch")
 
 def set_alarm(sentence: str):
