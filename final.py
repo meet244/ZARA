@@ -2,7 +2,6 @@ import programs
 import openAssist
 import flans
 import re
-import time
 import pywhatkit as kit
 import pyautogui as pg
 
@@ -17,74 +16,57 @@ def ZARA(query):
     # query = "current temperature at new york"
     # query = "take from mumbai to goa"
     # query = "what is your name?"
+
+
     if(query.strip() == ""):return
 
     resp1 = flans.classify(query)
 
     for w in resp1.split(" "):
         if(w in ["start","open","launch","software"]):
-            # fun
             if programs.startProgramLocal(query):
-                return("launching it")
+                return("Launching it")
             else:
                 return("")
         if(w in ["code"]):
-            # oa
             resp = openAssist.response(query)
             if("write" in query or "paste" in query):
                 if('```' in resp):
                     pattern = r'```(.*?)```'
-                    # Find all matches using the re.findall() function
-                    matches = re.findall(pattern, resp, re.DOTALL)  # re.DOTALL matches across newlines
-
-                    # Print each match (i.e., the extracted code blocks)
+                    matches = re.findall(pattern, resp, re.DOTALL)
                     for match in matches:
-                        # pg.write(match.stripe())
                         tex = match.strip()
                         pg.write(tex)
-                        # pg.write("/n")
                 else:
                     pg.write(resp)
             return(resp)
         if(w in ["math"]):
-            # flan oa
-            # print("wolfarm")
-            # print(programs.wolfarm(query))
             print("Flan")
             return(flans.Mathresponse(query))
         if(w in ["gk"]):
-            # oa
-            print("oA")
-            return(openAssist.response(query))
             print("wolfarm")
             return(programs.wolfarm(query))
         if(w in ["conversion","unit"]):
             return(programs.convert(query))
-            break
         if(w in ["alarm"]):
-            # fun
             programs.set_alarm(query)
-            return("alaram set")
+            return("Alaram set")
         if(w in ["timer"]):
-            # fun
             programs.timer(query)
-            return("timer set")
+            return("Timer set")
         if(w in ["song","music"]):
-            # fun  
             words = ['play','song','music']
             for w in words:
                 query = query.replace(w,"")
             kit.playonyt(query)
-            return ("playing it")
+            return ("Playing it")
         if(w in ["weather"]):
-            # fun
             return(programs.temp(query))
         if(w in ["news"]):
-            # fun
-            return("a news line")
+            return(programs.print_news(query))
         if(w in ["navigation"]):
-            # fun
             return(programs.travel(query))
+        if(w in ["wikipedia"]):
+            return(programs.get_wikipedia_summary(query))
         if(w in ["others","other","conversation"]):
-            # oa
             return(openAssist.response(query))

@@ -8,6 +8,9 @@ import subprocess
 import wikipedia
 from datetime import datetime, timedelta
 from bs4 import BeautifulSoup
+from dotenv import load_dotenv
+load_dotenv()
+import os
 
 def startProgramLocal(name):
 
@@ -179,8 +182,7 @@ def timer(sentence):
   print("Timer saved to 'time.json'.")
 
 def wolfarm(query):
-  api_key = "PUGTVE-UGAUTTV3L2"
-  requester = wolframalpha.Client(api_key)
+  requester = wolframalpha.Client(os.getenv("WOLFARM_API"))
   requested = requester.query(query)
   try:
     Answer = next(requested.results).text
@@ -190,8 +192,7 @@ def wolfarm(query):
     return("An String Value Is Not Answerable.")
 
 def temp(query):
-  query = query.replace('what is ', '').replace('tell me about ',
-                                                '').replace('tell me ', '')
+  query = query.replace('what is ', '').replace('tell me about ','').replace('tell me ', '')
   url = 'https://www.google.com/search?q=' + query
   headers = {
       'User-Agent':
@@ -238,32 +239,32 @@ def convert(query):
   temp = data.find('div', class_='BNeawe').text
   return f"{temp}"
 
-
-# print(get_wikipedia_summary("satya Nadella"))
-
-# queries solver
-# wolfarm -> wikipedia -> llm
-# Large-Language-Model
-
-
-# Math sums: What is the square root of 169?
-# General Knowledge: What is the capital city of Australia?
-# Currency: How many Japanese Yen are equivalent to 50 US Dollars?
-# Unit Conversion: Convert 5 kilometers to miles.
-# Questions: What is the purpose of the ozone layer in Earth's atmosphere?
-# Alarms: Set an alarm for 7:00 AM tomorrow.
-# Song or Music: Play "Imagine" by John Lennon.
-# Timers: Set a timer for 15 minutes.
-# Weather: What's the forecast for tomorrow's weather in New York City?
-# News: What major event made headlines in the world today?
-# Navigation: How do I get to the nearest gas station from my current location?
-
-
-
-
-
-
-
-
-
-
+def print_news(keyword="india"):
+    base_url = "https://newsapi.org/v2/everything"
+    
+    params = {
+        "apiKey": os.getenv("NEWSAPI_KEY"),
+        "q": keyword,
+    }
+    response = requests.get(base_url, params=params)
+    
+    if response.status_code == 200:
+        news_data = response.json()
+        articles = news_data.get("articles", [])
+        
+        if articles:
+            ret = ''
+            for idx, article in enumerate(articles, start=1):
+                title = article.get("title", "No title available")
+                source = article.get("source", {}).get("name", "Unknown source")
+                description = article.get("description", "No description available")
+                
+                ret += (f"Article: {idx}\n")
+                ret += (f"Title: {title}\n")
+                ret += (f"Source: {source}\n")
+                ret += (f"Description: {description}\n\n")
+            return ret
+        else:
+            return("No articles found.")
+    else:
+        return("Error fetching news data.")

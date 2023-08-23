@@ -11,6 +11,7 @@ import customtkinter
 from PIL import Image
 import markdown2
 import threading
+import timeIsImportant
 
 # VARS
 colorDB = "#165182"
@@ -24,6 +25,7 @@ def markdown_to_text(markdown_content):
 customtkinter.set_appearance_mode("dark")  # Modes: system (default), light, dark
 customtkinter.set_default_color_theme("blue")  # Themes: blue (default), dark-blue, green
 app = customtkinter.CTk()  # create CTk window like you do with the Tk window
+app.title("ZARA")
 app.geometry("400x600")
 
 def enterPress(btn):
@@ -37,32 +39,26 @@ app.grid_columnconfigure(1, weight=1)
 app.grid_rowconfigure(1, weight=1)
 app.grid_rowconfigure((0, 2), weight=0)
 
-send_image = customtkinter.CTkImage(dark_image=Image.open("send-dark.png"),size=(25,25))
+send_image = customtkinter.CTkImage(dark_image=Image.open("send.png"),size=(25,25))
 mic_image = customtkinter.CTkImage(dark_image=Image.open("mic-dark.png"),size=(25,25))
 
 def button_listen():
     print("button listen")
     takeCommand()
-listen_btn = customtkinter.CTkButton(app, text="", fg_color="transparent",width=30, height=30, command=button_listen, image=mic_image)
+listen_btn = customtkinter.CTkButton(app, text="",bg_color="transparent", fg_color="transparent",width=30, height=30, command=button_listen, image=mic_image)
 listen_btn.grid(row=2,column=0,padx=(5,5),pady=(10,10))
 
 entry = customtkinter.CTkEntry(app, placeholder_text="Ask Anything...")
 entry.grid(row=2 ,column=1,pady=(10,10),sticky="nsew")
 
 def button_send():
-    user_say(entry.get())
-    # tex,c = format_text(entry.get())
-    # textbox = customtkinter.CTkTextbox(scrollable_frame,activate_scrollbars=False, height=500,width=300)
-    # textbox.insert('0.0',en)
-    # textbox.configure(state="disabled", wrap="word")  # configure textbox to be read-only
-    # textbox.grid(row=len(allMessage)+1,column=0, padx=(5,5), pady=(5,5), sticky="ne")
-    # allMessage.append(textbox)
-    print("button send")
-    t = threading.Thread(target=askZARA)
-    t.start()
+    if(str(entry.get()).strip()!=""):
+        user_say(str(entry.get()).strip())
+        print("button send")
+        t = threading.Thread(target=askZARA)
+        t.start()
 
-    
-send_btn = customtkinter.CTkButton(app, text="", fg_color="transparent",width=30, height=30, command=button_send, image=send_image)
+send_btn = customtkinter.CTkButton(app, text="",bg_color="transparent", fg_color="transparent",width=30, height=30, command=button_send, image=send_image)
 send_btn.grid(row=2,column=2,padx=(5,5),pady=(10,10))
 
 scrollable_frame = customtkinter.CTkScrollableFrame(app,width=450,height=300,label_anchor='s')
@@ -99,6 +95,7 @@ def zara_say(thing):
 def askZARA():
     if(entry.get() == ""):return
     resp = final.ZARA(entry.get())
+    entry.delete(0,"end")
     print(resp)
     zara_say(resp.replace('```',"\n\n"))
 
@@ -111,12 +108,16 @@ pygame.mixer.init(frequency=44100, size=-16, channels=2, buffer=4096)
 sound_file = 'wake.mp3'
 sound = pygame.mixer.Sound(sound_file)
 
-audio_stream = pa.open(
-    rate=porcupine.sample_rate,
-    channels=1,
-    format=pyaudio.paInt16,
-    input=True,
-    frames_per_buffer=porcupine.frame_length)
+audio_stream = None
+try:
+    audio_stream = pa.open(
+        rate=porcupine.sample_rate,
+        channels=1,
+        format=pyaudio.paInt16,
+        input=True,
+        frames_per_buffer=porcupine.frame_length)
+except Exception as e:
+    pass
 
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
@@ -133,6 +134,7 @@ def speak(audio):
         engine.runAndWait()
 
 def takeCommand():
+    if(not audio_stream):return
     r = sr.Recognizer()
     prev_color = listen_btn.cget("fg_color")
     query = None
@@ -157,6 +159,7 @@ def waitWakeUp():
     try:
         print("Speak Up")
         while(1):
+            if(not audio_stream):return
             keyword = audio_stream.read(porcupine.frame_length)
             keyword = struct.unpack("h"*porcupine.frame_length,keyword)
             keyword_index = porcupine.process(keyword)
@@ -166,12 +169,16 @@ def waitWakeUp():
                 takeCommand()
     finally:
         porcupine.delete()
-        audio_stream.close()
+        if audio_stream:
+            audio_stream.close()
 
 if __name__ == "__main__":
+    wake = threading.Thread(target=timeIsImportant.start)
+    wake.daemon = True
+    wake.start()
     wake = threading.Thread(target=waitWakeUp)
     wake.daemon = True
     wake.start()
-    zara_say("Hello how can I help?")
+    zara_say("Say 'Hey Zara' or use UI to have a chit-chat..")
+    zara_say("Hello, how can I help?")
     app.mainloop()
-    
