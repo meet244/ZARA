@@ -45,7 +45,7 @@ def response(sentence):
     #     return input_text
 
 def Mathresponse(sentence):
-    template = "{question}\nWrite Your Final Answer. Read and Understand the Problem. Identify the Relevant Concepts. Make the equation. Perform Calculations"
+    template = "{question}"
             
     prompt = PromptTemplate(template=template, input_variables=["question"])
 
