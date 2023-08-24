@@ -2,7 +2,7 @@ import final
 import pvporcupine
 import pyaudio
 import struct
-import playsound
+from tkinter import PhotoImage
 import pygame
 import pyttsx3 #pip install pyttsx3
 import speech_recognition as sr #pip install speechRecognition
@@ -15,6 +15,7 @@ import timeIsImportant
 
 # VARS
 colorDB = "#165182"
+colorDB = "#4286F5"
 
 # LOADING GUI
 
@@ -27,6 +28,8 @@ customtkinter.set_default_color_theme("blue")  # Themes: blue (default), dark-bl
 app = customtkinter.CTk()  # create CTk window like you do with the Tk window
 app.title("ZARA")
 app.geometry("400x600")
+img = PhotoImage("send.png")
+app.iconphoto(False, img)
 
 def enterPress(btn):
     if(entry.get()==""):
@@ -43,7 +46,7 @@ send_image = customtkinter.CTkImage(dark_image=Image.open("send.png"),size=(25,2
 mic_image = customtkinter.CTkImage(dark_image=Image.open("mic-dark.png"),size=(25,25))
 
 def button_listen():
-    print("button listen")
+    # print("button listen")
     takeCommand()
 listen_btn = customtkinter.CTkButton(app, text="",bg_color="transparent", fg_color="transparent",width=30, height=30, command=button_listen, image=mic_image)
 listen_btn.grid(row=2,column=0,padx=(5,5),pady=(10,10))
@@ -54,7 +57,7 @@ entry.grid(row=2 ,column=1,pady=(10,10),sticky="nsew")
 def button_send():
     if(str(entry.get()).strip()!=""):
         user_say(str(entry.get()).strip())
-        print("button send")
+        # print("button send")
         t = threading.Thread(target=askZARA)
         t.start()
 
@@ -69,7 +72,7 @@ scrollable_frame.grid_rowconfigure(0,weight=1)
 allMessage = []
 
 def user_say(thing):
-    textbox = customtkinter.CTkTextbox(scrollable_frame,activate_scrollbars=False, height=500,width=300)
+    textbox = customtkinter.CTkTextbox(scrollable_frame, height=500,width=300)
     textbox.insert('0.0',thing)
     textbox.configure(state="disabled", wrap="word")  # configure textbox to be read-only
     last_line = textbox.index("end-1c").split(".")[0]
@@ -78,7 +81,7 @@ def user_say(thing):
     allMessage.append(textbox)
 
 def zara_say(thing):
-    textbox = customtkinter.CTkTextbox(scrollable_frame,activate_scrollbars=False, height=500,width=300, fg_color=colorDB)
+    textbox = customtkinter.CTkTextbox(scrollable_frame, height=500,width=300, fg_color=colorDB)
     textbox.insert('0.0',thing)
     textbox.configure(state="disabled", wrap="word")  # configure textbox to be read-only
     last_line = textbox.index("end-1c").split(".")[0]
@@ -87,16 +90,14 @@ def zara_say(thing):
     allMessage.append(textbox)
 
 
-
-
-
 #LOADING ZARA
 
 def askZARA():
     if(entry.get() == ""):return
     resp = final.ZARA(entry.get())
+    if(resp.strip()==""):return
     entry.delete(0,"end")
-    print(resp)
+    # print(resp)
     zara_say(resp.replace('```',"\n\n"))
 
 
@@ -164,7 +165,6 @@ def waitWakeUp():
             keyword = struct.unpack("h"*porcupine.frame_length,keyword)
             keyword_index = porcupine.process(keyword)
             if keyword_index>=0:
-                print('done')
                 sound.play()
                 takeCommand()
     finally:

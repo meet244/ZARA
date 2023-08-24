@@ -20,7 +20,7 @@ def classify(sentence):
 
     # def generate_response(question, llm_chain):
     response = llm_chain.run(sentence)
-    print(response)
+    # print(response)
     return response
 
 def response(sentence):

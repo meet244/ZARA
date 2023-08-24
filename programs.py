@@ -56,7 +56,7 @@ def startProgramLocal(name):
       return True
   else:
       return False
-      print("No apps found to launch")
+      # print("No apps found to launch")
 
 def set_alarm(sentence: str):
   # time = get_alarm_time(sentence)
@@ -114,7 +114,7 @@ def set_alarm(sentence: str):
       alarm_milliseconds = int(alarm_time.timestamp())
 
       # print(f"Alarm Time: {hours:02d}:{minutes:02d}")
-      print(f"Alarm Milliseconds: {alarm_milliseconds} ms")
+      # print(f"Alarm Milliseconds: {alarm_milliseconds} ms")
       # print()
 
       timer_data = {}
@@ -127,7 +127,7 @@ def set_alarm(sentence: str):
       with open('time.json', 'w') as file:
         json.dump(data, file)
 
-      print("Alarm saved to 'time.json'.")
+      # print("Alarm saved to 'time.json'.")
     else:
       print(f"No valid time found in sentence: {sentence}\n")
 
@@ -158,9 +158,10 @@ def timer(sentence):
     if value2 and unit2:
       total_seconds += convert_to_seconds(value2, unit2)
     if from_now:
-      print("Ignoring 'from now' for calculation.")
+      pass
+      # print("Ignoring 'from now' for calculation.")
 
-  print(f"{sentence} ==Total time: {total_seconds} seconds")
+  # print(f"{sentence} ==Total time: {total_seconds} seconds")
 
   timer_data = {}
 
@@ -179,7 +180,7 @@ def timer(sentence):
   with open('time.json', 'w') as file:
     json.dump(data, file)
 
-  print("Timer saved to 'time.json'.")
+  # print("Timer saved to 'time.json'.")
 
 def wolfarm(query):
   requester = wolframalpha.Client(os.getenv("WOLFARM_API"))

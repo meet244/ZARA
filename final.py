@@ -6,8 +6,10 @@ import pywhatkit as kit
 import pyautogui as pg
 
 def ZARA(query):
+    print("Understanding")
     # query = "open chrome"
     # query = "make a simple hi program in java"
+    # There is a basket containing 5 apples, how do you divide the apples among 5 children so that each child has 1 apple while 1 apple remains in the basket?
     # query = "Ariel was playing basketball. 1 of her shots went in the hoop. 2 of her shots did not go in the hoop. How many shots were there in total?"
     # query = "which is tallest building in world?"
     # query = "set alarm at 5 pm."
@@ -21,13 +23,14 @@ def ZARA(query):
     if(query.strip() == ""):return
 
     resp1 = flans.classify(query)
-
+    
+    print("Thinking")
     for w in resp1.split(" "):
         if(w in ["start","open","launch","software"]):
             if programs.startProgramLocal(query):
                 return("Launching it")
             else:
-                return("")
+                return("Still learning to do so")
         if(w in ["code"]):
             resp = openAssist.response(query)
             if("write" in query or "paste" in query):
@@ -41,10 +44,8 @@ def ZARA(query):
                     pg.write(resp)
             return(resp)
         if(w in ["math"]):
-            print("Flan")
             return(flans.Mathresponse(query))
         if(w in ["gk"]):
-            print("wolfarm")
             return(programs.wolfarm(query))
         if(w in ["conversion","unit"]):
             return(programs.convert(query))
