@@ -1,8 +1,8 @@
 # ZARA - Zingi Autonomous Response Assistant 🤖
 
-![Banner](https://github.com/meet244/ZARA/assets/83262693/330b129f-54c7-4ef3-9ffc-4cbba1be036c)
+![Banner](https://github.com/meet244/ZARA/assets/83262693/da9f2026-3635-4150-9373-4ac84c1325d0)
 
-ZARA (Zingi Autonomous Response Assistant) is a virtual assistant built by a [Customtkinter](https://customtkinter.tomschimansky.com/) GUI and backed by Hugging Face models. It can answer questions and perform tasks using natural language processing. 🌐
+ZARA (Zingi Autonomous Response Assistant) is a virtual assistant built with [Customtkinter](https://customtkinter.tomschimansky.com/) GUI and backed by Hugging Face models. It can answer questions and perform tasks using natural language processing. 🌐
 
 ## Features ✨
 
@@ -19,8 +19,7 @@ ZARA can handle various queries and tasks, including:
 
 
 ## Demo Video 📽️
-
-[![Demo Video](https://github.com/meet244/ZARA/assets/83262693/120112b5-1df7-4feb-b7a1-2092f5324fb2)](https://github.com/meet244/ZARA/assets/83262693/120112b5-1df7-4feb-b7a1-2092f5324fb2)
+https://github.com/meet244/ZARA/assets/83262693/937ddec0-0a1a-4102-989b-afebd519add9
 
 ## How to Interact 🗣️💬
 
