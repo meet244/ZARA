@@ -4,7 +4,7 @@
 
 ZARA (Zingi Autonomous Response Assistant) is a virtual assistant powered by a customtkinter GUI and backed by Hugging Face models. It can answer questions and perform tasks using natural language processing. 🌐
 
-## Features 🎉
+## Features ✨
 
 ZARA can handle various queries and tasks, including:
 - Opening applications (e.g., "open chrome") 🖥️
@@ -51,6 +51,40 @@ To use ZARA, you'll need to set up API keys by creating a `.env` file in the pro
    ```sh
    python main.py
    ```
+
+## Used Python Modules 📦
+
+This project relies on various Python modules to achieve its functionality. Here is a list of the modules that are being used:
+
+- `json`: For working with JSON data.
+- `time`: For time-related operations.
+- `pygame`: For creating games and multimedia applications.
+- `os`: For interacting with the operating system.
+- `pyaudio`: For working with audio.
+- `requests`: For making HTTP requests.
+- `wolframalpha`: For querying Wolfram Alpha computational knowledge engine.
+- `re`: For regular expressions.
+- `subprocess`: For running subprocesses.
+- `wikipedia`: For interacting with Wikipedia articles.
+- `datetime`: For working with dates and times.
+- `BeautifulSoup`: For parsing HTML and XML documents.
+- `dotenv`: For loading environment variables from a file.
+- `streamlit`: For creating interactive web applications.
+- `langchain`: A library related to language generation.
+- `final`: It's not clear which module/package this refers to.
+- `pvporcupine`: For keyword detection.
+- `pyttsx3`: For text-to-speech conversion.
+- `speech_recognition`: For speech recognition.
+- `customtkinter`: It's not clear which module/package this refers to.
+- `PIL`: For working with images.
+- `markdown2`: For converting Markdown to HTML.
+- `threading`: For working with threads.
+- `timeIsImportant`: It's not clear which module/package this refers to.
+- `programs`: It's not clear which module/package this refers to.
+- `openAssist`: It's not clear which module/package this refers to.
+- `flans`: It's not clear which module/package this refers to.
+- `pywhatkit`: For performing various tasks using the web.
+- `pyautogui`: For programmatically controlling the mouse and keyboard.
 
 ## Acknowledgments 🙌
 
