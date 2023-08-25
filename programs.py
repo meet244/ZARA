@@ -159,15 +159,10 @@ def timer(sentence):
       total_seconds += convert_to_seconds(value2, unit2)
     if from_now:
       pass
-      # print("Ignoring 'from now' for calculation.")
-
-  # print(f"{sentence} ==Total time: {total_seconds} seconds")
 
   timer_data = {}
 
-  # offset_minutes = int(input("Enter the offset minutes for the timer: "))
   current_time = int(time.time())
-  # timer_time = current_time + (offset_minutes * 60)
   timer_time = current_time + total_seconds
 
   timer_data[timer_time] = "timer"
@@ -183,14 +178,17 @@ def timer(sentence):
   # print("Timer saved to 'time.json'.")
 
 def wolfarm(query):
-  requester = wolframalpha.Client(os.getenv("WOLFARM_API"))
-  requested = requester.query(query)
   try:
-    Answer = next(requested.results).text
-    if("data not provided" in Answer):raise Exception()
-    return str(Answer)
+    requester = wolframalpha.Client(os.getenv("WOLFARM_API"))
+    requested = requester.query(query)
+    try:
+      Answer = next(requested.results).text
+      if("data not provided" in Answer):raise Exception()
+      return str(Answer)
+    except:
+      return("An String Value Is Not Answerable.")
   except:
-    return("An String Value Is Not Answerable.")
+    return("Invalid Wolframalpha API key")
 
 def temp(query):
   query = query.replace('what is ', '').replace('tell me about ','').replace('tell me ', '')

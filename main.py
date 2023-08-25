@@ -8,10 +8,13 @@ import pyttsx3 #pip install pyttsx3
 import speech_recognition as sr #pip install speechRecognition
 import re
 import customtkinter
-from PIL import Image
+from PIL import Image, ImageTk
 import markdown2
 import threading
 import timeIsImportant
+from dotenv import load_dotenv
+load_dotenv()
+import os
 
 # VARS
 colorDB = "#165182"
@@ -28,8 +31,7 @@ customtkinter.set_default_color_theme("blue")  # Themes: blue (default), dark-bl
 app = customtkinter.CTk()  # create CTk window like you do with the Tk window
 app.title("ZARA")
 app.geometry("400x600")
-img = PhotoImage("send.png")
-app.iconphoto(False, img)
+app.iconbitmap("zara.ico")
 
 def enterPress(btn):
     if(entry.get()==""):
@@ -76,18 +78,29 @@ def user_say(thing):
     textbox.insert('0.0',thing)
     textbox.configure(state="disabled", wrap="word")  # configure textbox to be read-only
     last_line = textbox.index("end-1c").split(".")[0]
-    textbox.configure(height=(20*int(last_line)))
+    wordPerLine = 0
+    for l in (thing.split("\n")):
+        wordPerLine += int(len(l.split(" "))/8)
+    textbox.configure(height=(20*(int(last_line)+wordPerLine)))
     textbox.grid(row=len(allMessage)+1,column=0, padx=(5,5), pady=(5,5), sticky="ne")
     allMessage.append(textbox)
 
 def zara_say(thing):
-    textbox = customtkinter.CTkTextbox(scrollable_frame, height=500,width=300, fg_color=colorDB)
-    textbox.insert('0.0',thing)
-    textbox.configure(state="disabled", wrap="word")  # configure textbox to be read-only
-    last_line = textbox.index("end-1c").split(".")[0]
-    textbox.configure(height=(20*int(last_line)))
-    textbox.grid(row=len(allMessage)+1,column=0, padx=(5,5), pady=(5,5), sticky="nw")
-    allMessage.append(textbox)
+    try:
+        textbox = customtkinter.CTkTextbox(scrollable_frame, height=500,width=300, fg_color=colorDB)
+        textbox.insert('0.0',thing)
+        textbox.configure(state="disabled", wrap="word")  # configure textbox to be read-only
+        last_line = textbox.index("end-1c").split(".")[0]
+        wordPerLine = 0
+        for l in (thing.split("\n")):
+            wordPerLine += int(len(l.split(" "))/8)
+        textbox.configure(height=(20*(int(last_line)+wordPerLine)))
+        textbox.grid(row=len(allMessage)+1,column=0, padx=(5,5), pady=(5,5), sticky="nw")
+        allMessage.append(textbox)
+        t = threading.Thread(target=speak,args=(thing,))
+        t.isDaemon = True
+        t.start()
+    except:pass
 
 
 #LOADING ZARA
@@ -100,8 +113,10 @@ def askZARA():
     # print(resp)
     zara_say(resp.replace('```',"\n\n"))
 
-
-porcupine = pvporcupine.create(keyword_paths=["Hey-Zara_en_windows_v2_1_0.ppn"],access_key="gltlepsfo/R5vPk3AH/JQQXYSD0urATF/ILqfeQDpjdCWq6/ZTR8RA==")
+porcupine=None
+try:
+    porcupine = pvporcupine.create(keyword_paths=["Hey-Zara_en_windows_v2_1_0.ppn"],access_key=os.getenv("PORCUPINE_API"))
+except Exception:pass
 
 pa = pyaudio.PyAudio()
 pygame.init()
@@ -168,7 +183,8 @@ def waitWakeUp():
                 sound.play()
                 takeCommand()
     finally:
-        porcupine.delete()
+        if porcupine:
+            porcupine.delete()
         if audio_stream:
             audio_stream.close()
 

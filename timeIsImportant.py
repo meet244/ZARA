@@ -16,11 +16,9 @@ def schedule_alarms_and_timers(data):
         timestamp, event = int(list(item.keys())[0]), list(item.values())[0]
         
         if timestamp <= current_time:
-            # print(f"Skipping {event} at {timestamp} as it's in the past.")
             continue
         
         wait_time = timestamp - current_time
-        # print(f"Scheduling {event} at {timestamp} ({wait_time:.2f} seconds from now).")
         
         time.sleep(wait_time)
         
