@@ -71,18 +71,13 @@ This project relies on various Python modules to achieve its functionality. Here
 - `dotenv`: For loading environment variables from a file.
 - `streamlit`: For creating interactive web applications.
 - `langchain`: A library related to language generation.
-- `final`: It's not clear which module/package this refers to.
 - `pvporcupine`: For keyword detection.
 - `pyttsx3`: For text-to-speech conversion.
 - `speech_recognition`: For speech recognition.
-- `customtkinter`: It's not clear which module/package this refers to.
+- `customtkinter`: A modern and customizable python UI-library based on Tkinter.
 - `PIL`: For working with images.
 - `markdown2`: For converting Markdown to HTML.
 - `threading`: For working with threads.
-- `timeIsImportant`: It's not clear which module/package this refers to.
-- `programs`: It's not clear which module/package this refers to.
-- `openAssist`: It's not clear which module/package this refers to.
-- `flans`: It's not clear which module/package this refers to.
 - `pywhatkit`: For performing various tasks using the web.
 - `pyautogui`: For programmatically controlling the mouse and keyboard.
 
