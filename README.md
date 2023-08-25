@@ -12,7 +12,7 @@ ZARA can handle various queries and tasks, including:
 - Riddles and puzzles 🧩
 - Temperature inquiries (e.g., "current temperature at New York") ☀️❄️
 - Navigation and travel queries (e.g., "take me from Mumbai to Goa") 🗺️✈️
-- Playing music (e.g., "play 'Aaisa Dekha Nahi Khubsoorat Koi'") 🎵🎶
+- Playing music (e.g., "play 'Let me love you'") 🎵🎶
 - Setting alarms and timers ⏰⏳
 - Answering general knowledge questions (e.g., "tallest building in the world") 🏢⁉️
 - Engaging in casual conversation (e.g., "what is your name?") 💬
