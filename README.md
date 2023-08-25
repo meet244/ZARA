@@ -1,12 +1,3 @@
-![zara-banner](https://github.com/meet244/ZARA/assets/83262693/330b129f-54c7-4ef3-9ffc-4cbba1be036c)
-
-
-
-
-https://github.com/meet244/ZARA/assets/83262693/120112b5-1df7-4feb-b7a1-2092f5324fb2
-
-
-
 # ZARA - Zingi Autonomous Response Assistant 🤖
 
 ![Banner](https://github.com/meet244/ZARA/assets/83262693/330b129f-54c7-4ef3-9ffc-4cbba1be036c)
@@ -29,7 +20,7 @@ ZARA can handle various queries and tasks, including:
 
 ## Demo Video 📽️
 
-[![Demo Video](https://github.com/meet244/ZARA/assets/83262693/120112b5-1df7-4feb-b7a1-2092f5324fb2)](https://github.com/meet244/ZARA/assets/83262693/demo_video.mp4)
+[![Demo Video](https://github.com/meet244/ZARA/assets/83262693/120112b5-1df7-4feb-b7a1-2092f5324fb2)](https://github.com/meet244/ZARA/assets/83262693/120112b5-1df7-4feb-b7a1-2092f5324fb2)
 
 ## How to Interact 🗣️💬
 
