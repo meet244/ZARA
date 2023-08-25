@@ -2,7 +2,7 @@
 
 ![Banner](https://github.com/meet244/ZARA/assets/83262693/330b129f-54c7-4ef3-9ffc-4cbba1be036c)
 
-ZARA (Zingi Autonomous Response Assistant) is a virtual assistant powered by a customtkinter GUI and backed by Hugging Face models. It can answer questions and perform tasks using natural language processing. 🌐
+ZARA (Zingi Autonomous Response Assistant) is a virtual assistant built by a [Customtkinter](https://customtkinter.tomschimansky.com/) GUI and backed by Hugging Face models. It can answer questions and perform tasks using natural language processing. 🌐
 
 ## Features ✨
 
